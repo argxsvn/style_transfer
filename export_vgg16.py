@@ -24,89 +24,94 @@ def main(output_filename):
     layer = layer[:, :, :, ::-1]
 
     vgg_layer = vgg_model.get_layer(index=1)
-    block1_conv1 = tf.keras.layers.Conv2D(64, 3, activation="relu", trainable=False, name="block1_conv1",
+    block1_conv1 = tf.keras.layers.Conv2D(64, 3, activation="relu", trainable=False, name="block1_conv1", padding="same",
                                           kernel_initializer=tf.constant_initializer(vgg_layer.weights[0].numpy()),
                                           bias_initializer=tf.constant_initializer(vgg_layer.weights[1].numpy()))
     layer_1_1 = block1_conv1(layer)
 
     vgg_layer = vgg_model.get_layer(index=2)
-    block1_conv2 = tf.keras.layers.Conv2D(64, 3, activation="relu", trainable=False, name="block1_conv2",
+    block1_conv2 = tf.keras.layers.Conv2D(64, 3, activation="relu", trainable=False, name="block1_conv2", padding="same",
                                           kernel_initializer=tf.constant_initializer(vgg_layer.weights[0].numpy()),
                                           bias_initializer=tf.constant_initializer(vgg_layer.weights[1].numpy()))
     layer_1_2 = block1_conv2(layer_1_1)
     pooled = tf.keras.layers.AveragePooling2D(name="block1_pool")(layer_1_2)
 
     vgg_layer = vgg_model.get_layer(index=4)
-    block2_conv1 = tf.keras.layers.Conv2D(128, 3, activation="relu", trainable=False, name="block2_conv1",
+    block2_conv1 = tf.keras.layers.Conv2D(128, 3, activation="relu", trainable=False, name="block2_conv1", padding="same",
                                           kernel_initializer=tf.constant_initializer(vgg_layer.weights[0].numpy()),
                                           bias_initializer=tf.constant_initializer(vgg_layer.weights[1].numpy()))
     layer_2_1 = block2_conv1(pooled)
 
     vgg_layer = vgg_model.get_layer(index=5)
-    block2_conv2 = tf.keras.layers.Conv2D(128, 3, activation="relu", trainable=False, name="block2_conv2",
+    block2_conv2 = tf.keras.layers.Conv2D(128, 3, activation="relu", trainable=False, name="block2_conv2", padding="same",
                                           kernel_initializer=tf.constant_initializer(vgg_layer.weights[0].numpy()),
                                           bias_initializer=tf.constant_initializer(vgg_layer.weights[1].numpy()))
     layer_2_2 = block2_conv2(layer_2_1)
     pooled = tf.keras.layers.AveragePooling2D(name="block2_pool")(layer_2_2)
 
     vgg_layer = vgg_model.get_layer(index=7)
-    block3_conv1 = tf.keras.layers.Conv2D(256, 3, activation="relu", trainable=False, name="block3_conv1",
+    block3_conv1 = tf.keras.layers.Conv2D(256, 3, activation="relu", trainable=False, name="block3_conv1", padding="same",
                                           kernel_initializer=tf.constant_initializer(vgg_layer.weights[0].numpy()),
                                           bias_initializer=tf.constant_initializer(vgg_layer.weights[1].numpy()))
     layer_3_1 = block3_conv1(pooled)
 
     vgg_layer = vgg_model.get_layer(index=8)
-    block3_conv2 = tf.keras.layers.Conv2D(256, 3, activation="relu", trainable=False, name="block3_conv2",
+    block3_conv2 = tf.keras.layers.Conv2D(256, 3, activation="relu", trainable=False, name="block3_conv2", padding="same",
                                           kernel_initializer=tf.constant_initializer(vgg_layer.weights[0].numpy()),
                                           bias_initializer=tf.constant_initializer(vgg_layer.weights[1].numpy()))
     layer_3_2 = block3_conv2(layer_3_1)
 
     vgg_layer = vgg_model.get_layer(index=9)
-    block3_conv3 = tf.keras.layers.Conv2D(256, 3, activation="relu", trainable=False, name="block3_conv3",
+    block3_conv3 = tf.keras.layers.Conv2D(256, 3, activation="relu", trainable=False, name="block3_conv3", padding="same",
                                           kernel_initializer=tf.constant_initializer(vgg_layer.weights[0].numpy()),
                                           bias_initializer=tf.constant_initializer(vgg_layer.weights[1].numpy()))
     layer_3_3 = block3_conv3(layer_3_2)
     pooled = tf.keras.layers.AveragePooling2D(name="block3_pool")(layer_3_3)
 
     vgg_layer = vgg_model.get_layer(index=11)
-    block4_conv1 = tf.keras.layers.Conv2D(512, 3, activation="relu", trainable=False, name="block4_conv1",
+    block4_conv1 = tf.keras.layers.Conv2D(512, 3, activation="relu", trainable=False, name="block4_conv1", padding="same",
                                           kernel_initializer=tf.constant_initializer(vgg_layer.weights[0].numpy()),
                                           bias_initializer=tf.constant_initializer(vgg_layer.weights[1].numpy()))
     layer_4_1 = block4_conv1(pooled)
 
     vgg_layer = vgg_model.get_layer(index=12)
-    block4_conv2 = tf.keras.layers.Conv2D(512, 3, activation="relu", trainable=False, name="block4_conv2",
+    block4_conv2 = tf.keras.layers.Conv2D(512, 3, activation="relu", trainable=False, name="block4_conv2", padding="same",
                                           kernel_initializer=tf.constant_initializer(vgg_layer.weights[0].numpy()),
                                           bias_initializer=tf.constant_initializer(vgg_layer.weights[1].numpy()))
     layer_4_2 = block4_conv2(layer_4_1)
 
     vgg_layer = vgg_model.get_layer(index=13)
-    block4_conv3 = tf.keras.layers.Conv2D(512, 3, activation="relu", trainable=False, name="block4_conv3",
+    block4_conv3 = tf.keras.layers.Conv2D(512, 3, activation="relu", trainable=False, name="block4_conv3", padding="same",
                                           kernel_initializer=tf.constant_initializer(vgg_layer.weights[0].numpy()),
                                           bias_initializer=tf.constant_initializer(vgg_layer.weights[1].numpy()))
     layer_4_3 = block4_conv3(layer_4_2)
     pooled = tf.keras.layers.AveragePooling2D(name="block4_pool")(layer_4_3)
 
     vgg_layer = vgg_model.get_layer(index=15)
-    block5_conv1 = tf.keras.layers.Conv2D(512, 3, activation="relu", trainable=False, name="block5_conv1",
+    block5_conv1 = tf.keras.layers.Conv2D(512, 3, activation="relu", trainable=False, name="block5_conv1", padding="same",
                                           kernel_initializer=tf.constant_initializer(vgg_layer.weights[0].numpy()),
                                           bias_initializer=tf.constant_initializer(vgg_layer.weights[1].numpy()))
     layer_5_1 = block5_conv1(pooled)
 
     vgg_layer = vgg_model.get_layer(index=16)
-    block5_conv2 = tf.keras.layers.Conv2D(512, 3, activation="relu", trainable=False, name="block5_conv2",
+    block5_conv2 = tf.keras.layers.Conv2D(512, 3, activation="relu", trainable=False, name="block5_conv2", padding="same",
                                           kernel_initializer=tf.constant_initializer(vgg_layer.weights[0].numpy()),
                                           bias_initializer=tf.constant_initializer(vgg_layer.weights[1].numpy()))
     layer_5_2 = block5_conv2(layer_5_1)
 
     vgg_layer = vgg_model.get_layer(index=17)
-    block5_conv3 = tf.keras.layers.Conv2D(512, 3, activation="relu", trainable=False, name="block5_conv3",
+    block5_conv3 = tf.keras.layers.Conv2D(512, 3, activation="relu", trainable=False, name="block5_conv3", padding="same",
                                           kernel_initializer=tf.constant_initializer(vgg_layer.weights[0].numpy()),
                                           bias_initializer=tf.constant_initializer(vgg_layer.weights[1].numpy()))
     layer_5_3 = block5_conv3(layer_5_2)
 
-    content_layers = [layer_1_1, layer_1_2, layer_2_1, layer_2_2, layer_3_1, layer_3_2, layer_3_3, layer_4_1,
-                      layer_4_2, layer_4_3, layer_5_1, layer_5_2, layer_5_3]
+    content_layers = [tf.keras.layers.Flatten()(layer_1_1), tf.keras.layers.Flatten()(layer_1_2),
+                      tf.keras.layers.Flatten()(layer_2_1), tf.keras.layers.Flatten()(layer_2_2),
+                      tf.keras.layers.Flatten()(layer_3_1), tf.keras.layers.Flatten()(layer_3_2),
+                      tf.keras.layers.Flatten()(layer_3_3), tf.keras.layers.Flatten()(layer_4_1),
+                      tf.keras.layers.Flatten()(layer_4_2), tf.keras.layers.Flatten()(layer_4_3),
+                      tf.keras.layers.Flatten()(layer_5_1), tf.keras.layers.Flatten()(layer_5_2),
+                      tf.keras.layers.Flatten()(layer_5_3)]
 
     gram_layers = [GramLayer()(layer_1_2), GramLayer()(layer_2_2), GramLayer()(layer_3_3),
                    GramLayer()(layer_4_3), GramLayer()(layer_5_3)]
