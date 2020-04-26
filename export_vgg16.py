@@ -9,28 +9,13 @@ See the paper for details on the VGG architecture:
 
 import argparse
 import os
+import pickle
 import tensorflow as tf
 
-
-class GramLayer(tf.keras.layers.Layer):
-    """Layer to compute flattened Gram matrices from input image layers."""
-
-    def call(self, layer_in, **kwargs):
-        shape = tf.shape(layer_in)
-        batch_size = shape[0]
-        height = shape[1]
-        width = shape[2]
-        num_channels = shape[3]
-        num_elems = height * width * num_channels
-        gram = tf.reshape(layer_in, (batch_size, -1, num_channels))
-
-        gram = tf.matmul(gram, gram, transpose_a=True)
-        gram /= tf.cast(num_elems, gram.dtype)
-
-        return tf.reshape(gram, (batch_size, -1))
+from gram import GramLayer
 
 
-def main(output_dir):
+def main(output_filename):
     vgg_model = tf.keras.applications.vgg16.VGG16(weights="imagenet")
 
     input_layer = tf.keras.layers.Input(shape=[None, None, 3], dtype=tf.float32, name="vgg_feats_input")
@@ -129,15 +114,16 @@ def main(output_dir):
     content_output = tf.keras.layers.Concatenate()(content_layers)
     style_output = tf.keras.layers.Concatenate()(gram_layers)
 
-    model = tf.keras.Model(input_layer, [content_output, style_output])
+    model = tf.keras.Model([input_layer], [content_output, style_output])
 
-    model.save(output_dir)
+    with open(output_filename, "wb") as f_out:
+        pickle.dump(model.to_json(), f_out)
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
 
-    parser.add_argument("output_dir", help="Path to store the saved model")
+    parser.add_argument("output_filename", help="Path to store the saved model")
 
     args = parser.parse_args()
-    main(os.path.abspath(args.output_dir))
+    main(os.path.abspath(args.output_filename))
