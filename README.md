@@ -41,3 +41,28 @@ See the help for more options:
 
 ## License
 MIT license.
+
+## Examples
+
+Original image:
+
+![](examples/original1.jpg?raw=True)
+
+Style to transfer:
+
+![](examples/style1.jpg?raw=True)
+
+Result:
+
+![](examples/out1.jpg?raw=True)
+
+Result preserving color:
+
+![](examples/out2.jpg?raw=True)
+
+Other example styles for the following images:
+
+![](examples/original2.jpg?raw=True)
+
+
+![](examples/out3.jpg?raw=True) ![](examples/out4.jpg?raw=True) ![](examples/out5.jpg?raw=True) ![](examples/out6.jpg?raw=True)
